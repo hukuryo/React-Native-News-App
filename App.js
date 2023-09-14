@@ -1,32 +1,47 @@
-import { StatusBar, StyleSheet, View } from 'react-native';
+import { FlatList, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import { ListItem } from './components/ListItem';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const URL = "https://newsapi.org/v2/top-headlines?country=jp&category=business&apiKey=b7b516733fb945e0a34703a8dba3b8c1";
 
 export default function App() {
+  const [ articles, setArticles ] = useState([]);
+
+  const fetchArticles = async () => {
+    try{
+      const response = await axios.get(URL);
+      setArticles(response.data.articles);
+
+    }catch(error){
+      console.log(error);
+    }
+    setArticles(response);
+  }
+
+  useEffect(() => {
+    fetchArticles()
+  }, [])
+
   return (
-    <View style={styles.container}>
-      <ListItem imageUrl={"https://picsum.photos/id/237/200/300"} 
-        title={"サンプルのテキスト1です。asssssaasssssssssssssaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"} 
-        author={"sample1"}
-      />
-      <ListItem imageUrl={"https://picsum.photos/seed/picsum/200/300"} 
-        title={"サンプルのテキスト2です。asssssaasssssssssssssaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"} 
-        author={"sample2"}
-      />
-      <ListItem imageUrl={"https://picsum.photos/200/300?grayscale"} 
-        title={"サンプルのテキスト3です。asssssaasssssssssssssaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"} 
-        author={"sample3"}
-      />
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={articles}
+        renderItem={({item}) => (
+          <ListItem imageUrl={item.urlToImage} title={item.title} author={item.author}/>
+        )}
+        keyExtractor={(item, index) => item.toString()}
+      >
+      </FlatList>
       <StatusBar style="auto" />
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#eee',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#eee'
   },
   itemContainer: {
     height: 100,

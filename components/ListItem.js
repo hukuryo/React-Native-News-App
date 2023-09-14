@@ -5,19 +5,19 @@ export const ListItem = (props) => {
     return (
         <View style={styles.itemContainer}>
             <View style={styles.leftContainer}>
-            <Image
-                style={{width: 100, height: 100}}
-                source={{uri: imageUrl}}
-            >
-            </Image>
+                <Image
+                    style={{width: 100, height: 100}}
+                    source={{uri: imageUrl}}
+                >
+                </Image>
             </View>
             <View style={styles.rightContainer}>
-            <Text style={styles.text} numberOfLines={3}>
-                {title}
-            </Text>
-            <Text style={styles.subText}>
-                {author}
-            </Text>
+                <Text style={styles.text} numberOfLines={3}>
+                    {title}
+                </Text>
+                <Text style={styles.subText}>
+                    {author}
+                </Text>
             </View>
         </View>
     );
