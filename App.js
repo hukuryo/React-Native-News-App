@@ -1,9 +1,10 @@
 import { FlatList, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import { ListItem } from './components/ListItem';
 import { useEffect, useState } from 'react';
+import Constants from "expo-constants";
 import axios from 'axios';
 
-const URL = "https://newsapi.org/v2/top-headlines?country=jp&category=business&apiKey=b7b516733fb945e0a34703a8dba3b8c1";
+const URL = `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${Constants.extra.newsApiKey}`;
 
 export default function App() {
   const [ articles, setArticles ] = useState([]);
@@ -30,7 +31,7 @@ export default function App() {
         renderItem={({item}) => (
           <ListItem imageUrl={item.urlToImage} title={item.title} author={item.author}/>
         )}
-        keyExtractor={(item, index) => item.toString()}
+        keyExtractor={(item, index) => index.toString()}
       >
       </FlatList>
       <StatusBar style="auto" />
