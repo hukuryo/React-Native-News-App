@@ -2,6 +2,7 @@ import React from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
 import { WebView } from "react-native-webview";
 
+// 記事の詳細ページ
 export const ArticleScreen = ({ route }) => {
   const { article } = route.params;
 
