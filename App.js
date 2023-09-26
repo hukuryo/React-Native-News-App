@@ -35,6 +35,17 @@ const HomeStack = () => {
   );
 };
 
+const ClipStack = () => {
+  <Stack.Navigator>
+    <Stack.Screen
+      name="Clip"
+      component={ClipScreen}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen name="Article" component={ArticleScreen} />
+  </Stack.Navigator>;
+};
+
 export default function App() {
   return (
     <Provider store={store}>
@@ -48,7 +59,7 @@ export default function App() {
           />
           <Tab.Screen
             name="ClipTab"
-            component={ClipScreen}
+            component={ClipStack}
             options={{ headerShown: false, title: "Clip" }}
           />
         </Tab.Navigator>
