@@ -36,14 +36,16 @@ const HomeStack = () => {
 };
 
 const ClipStack = () => {
-  <Stack.Navigator>
-    <Stack.Screen
-      name="Clip"
-      component={ClipScreen}
-      options={{ headerShown: false }}
-    />
-    <Stack.Screen name="Article" component={ArticleScreen} />
-  </Stack.Navigator>;
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Clip"
+        component={ClipScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="Article" component={ArticleScreen} />
+    </Stack.Navigator>
+  );
 };
 
 export default function App() {
