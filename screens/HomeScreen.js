@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, SafeAreaView, StyleSheet } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+} from "react-native";
 import { ListItem } from "../components/ListItem";
 import axios from "axios";
 import Constants from "expo-constants";
@@ -8,6 +13,7 @@ const URL = `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${Co
 
 const HomeScreen = ({ navigation }) => {
   const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchArticles = async () => {
     try {
@@ -20,22 +26,31 @@ const HomeScreen = ({ navigation }) => {
 
   useEffect(() => {
     fetchArticles();
+    setLoading(false);
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={articles}
-        renderItem={({ item }) => (
-          <ListItem
-            imageUrl={item.urlToImage}
-            title={item.title}
-            author={item.author}
-            onPress={() => navigation.navigate("Article", { article: item })}
-          />
-        )}
-        keyExtractor={(item, index) => index.toString()}
-      />
+      {loading ? (
+        <ActivityIndicator
+          size="small"
+          color="#0000ff"
+          style={styles.loadingIcon}
+        />
+      ) : (
+        <FlatList
+          data={articles}
+          renderItem={({ item }) => (
+            <ListItem
+              imageUrl={item.urlToImage}
+              title={item.title}
+              author={item.author}
+              onPress={() => navigation.navigate("Article", { article: item })}
+            />
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      )}
     </SafeAreaView>
   );
 };
@@ -53,6 +68,10 @@ const styles = StyleSheet.create({
   },
   leftContainer: {
     width: 100,
+  },
+  loadingIcon: {
+    flex: 1,
+    justifyContent: "center",
   },
   rightContainer: {
     flex: 1,
