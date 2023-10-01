@@ -22,7 +22,7 @@ const HomeScreen = ({ navigation }) => {
     setRefreshing(true);
     setTimeout(() => {
       setRefreshing(false);
-    }, 2000);
+    }, 1000);
   }, []);
 
   const fetchArticles = async () => {
