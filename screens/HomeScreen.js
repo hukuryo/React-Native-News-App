@@ -29,6 +29,7 @@ const HomeScreen = ({ navigation }) => {
     try {
       const response = await axios.get(URL);
       setArticles(response.data.articles);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -36,7 +37,6 @@ const HomeScreen = ({ navigation }) => {
 
   useEffect(() => {
     fetchArticles();
-    setLoading(false);
   }, []);
 
   return (
